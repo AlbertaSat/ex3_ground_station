@@ -1,3 +1,17 @@
-import * as wasm from "hello-wasm-pack";
+// import * as wasm from "web-interface";
 
-wasm.greet();
+const displayTerm = document.getElementsByClassName("terminal");
+const history = document.getElementById("history")
+const inputTerm = document.getElementById("input");
+
+for (var i = 0; i < displayTerm.length; i++) {
+    displayTerm[i].addEventListener("click", _ => {
+        inputTerm.focus()
+    });
+}
+
+inputTerm.onkeyup = e => {
+    if (e.which == 13) {
+        history.append(inputTerm.value + '<br/>');
+        inputTerm.value = '';
+    }};
