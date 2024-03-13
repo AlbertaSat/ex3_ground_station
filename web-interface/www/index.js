@@ -1,4 +1,4 @@
-// import * as wasm from "web-interface";
+import * as wasm from "web-interface";
 
 const displayTerm = document.getElementsByClassName("terminal");
 const history = document.getElementById("history")
@@ -12,6 +12,7 @@ for (var i = 0; i < displayTerm.length; i++) {
 
 inputTerm.onkeyup = e => {
     if (e.which == 13) {
-        history.append(inputTerm.value + '<br/>');
+        history.append(inputTerm.value + '\n');
         inputTerm.value = '';
+        wasm.greet();
     }};
