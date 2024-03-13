@@ -13,6 +13,6 @@ for (var i = 0; i < displayTerm.length; i++) {
 inputTerm.onkeyup = e => {
     if (e.which == 13) {
         history.append(inputTerm.value + '\n');
+        wasm.string_parse(inputTerm.value);
         inputTerm.value = '';
-        wasm.greet();
     }};

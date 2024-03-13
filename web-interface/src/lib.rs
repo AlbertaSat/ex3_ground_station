@@ -11,3 +11,12 @@ extern "C" {
 pub fn greet() {
     alert("Hello, AlbertaSat!");
 }
+
+#[wasm_bindgen]
+pub fn string_parse(s: &str) {
+    match s {
+        "testing" => alert("This was the testing word"),
+        "adcs off" => alert("Turning ADCS off"),
+        _ => (),
+    }
+}

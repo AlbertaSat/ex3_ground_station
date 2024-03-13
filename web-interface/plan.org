@@ -1,0 +1,3 @@
+#+title: Plan
+* TODO Make the string parser function in rust
+* TODO Make the correct connection to the FSW
