@@ -3,10 +3,6 @@ Written by Devin Headrick
 
 This defines an UHF packet, for communicating with Endurosat UHF transceiver
 
-
-//TODO - build a larger data file like an image from a series of incoming packets
-
-
 Provided packet structure for Endurosat UHF:
 +-----------+---------+-------------+---------------------+
 | Field     | Length  | Description | Byte/Bit Order      |
@@ -38,6 +34,8 @@ Provided packet structure for Endurosat UHF:
 +-----------+---------+-------------+---------------------+
 
 
+TODO - build a larger data file like an image from a series of incoming packets
+
 */
 
 pub struct UHF_packet {
@@ -50,13 +48,9 @@ pub struct UHF_packet {
 
 impl UHF_packet {
     //TODO create an UHF packet from input data
-    fn new(data: [u8; 128]) {
+    fn new(&mut self, data: [u8; 128]) {
         //TODO - this
 
-        self.calc_crc();
     }
 
-    fn calc_crc(&mut self) {
-        self.crc16 = 10;
-    }
 }
