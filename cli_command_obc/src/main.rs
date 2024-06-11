@@ -1,7 +1,7 @@
 /**
  * Written by Devin headrick
  * 2024 summer
- *z
+ *
  * Simple CLI to write commands to the OBC via TCP. This establishes a TCP client and sends data as bytes
  */
 
