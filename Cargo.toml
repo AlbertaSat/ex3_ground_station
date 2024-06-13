@@ -1,4 +1,4 @@
-workspace = { members = ["cli_command_obc"] }
+workspace = { members = ["cli_command_obc", "ex3_ground_station_dashboard"] }
 [package]
 name = "ground-server"
 version = "0.1.0"
