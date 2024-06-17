@@ -58,7 +58,8 @@ fn options_cors() -> Status {
 
 #[launch]
 async fn rocket() -> _ {
-    let connection = match Database::connect("postgresql://inioluwaadeniyi:5678@localhost:5432/ex_alta_3").await {
+    let db_url = "postgresql://<username>:<password>@localhost:5432/<db_name>";
+    let connection = match Database::connect(db_url).await {
         Ok(connection) => connection,
         Err(e) => panic!("Error connecting to database: {}", e),
     };
