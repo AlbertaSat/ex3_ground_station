@@ -1,14 +1,15 @@
 use crate::obc_client::ObcClient;
-use sea_orm::{Database, DatabaseConnection, EntityTrait, Set, ActiveModelTrait};
+use sea_orm::{Database, DatabaseConnection, Set, ActiveModelTrait};
 use rocket::fs::{relative, FileServer};
 use rocket::serde::{Deserialize, json::Json};
-use rocket::response::status;
 use rocket::State;
 use tokio::sync::Mutex;
 use once_cell::sync::Lazy;
 use rocket_cors::{AllowedHeaders, AllowedOrigins, CorsOptions};
 use rocket::http::Status;
 use entities::command;
+use dotenv::dotenv;
+use std::env;
 
 #[macro_use]
 extern crate rocket;
@@ -58,7 +59,10 @@ fn options_cors() -> Status {
 
 #[launch]
 async fn rocket() -> _ {
-    let db_url = "postgresql://<username>:<password>@localhost:5432/<db_name>";
+    dotenv().ok(); 
+
+    let db_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    
     let connection = match Database::connect(db_url).await {
         Ok(connection) => connection,
         Err(e) => panic!("Error connecting to database: {}", e),

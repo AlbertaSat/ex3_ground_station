@@ -12,3 +12,4 @@ rocket_cors = "0.6.0"
 rocket = { version = "0.5.0", features = ["json"] }
 sea-orm = {version = "0.12.15", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"]}
 tokio = { version = "1.37.0", features = ["full"] }
+dotenv = "0.15.0"

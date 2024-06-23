@@ -45,3 +45,6 @@
 /ex3_ground_station_dashboard/dist/
 /ex3_ground_station_dashboard/target/
 /ex3_ground_station_dashboard/Cargo.lock
+
+
+.env
