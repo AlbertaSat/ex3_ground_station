@@ -1,0 +1,22 @@
+.send-cmd-card {
+    margin-right: 1em;
+}
+
+.send-cmd-card {
+    background-color: var(--secondary-color);
+    padding: 1em;
+}
+
+.send-cmd-card input {
+    width: 100%;
+}
+
+.response-list {
+    margin-bottom: 1.3em;
+}
+
+.cmd-response-card {
+    border-left: 0.3em solid var(--main-color);
+    padding: 0.3em 1em;
+    margin: 1em 0;
+}

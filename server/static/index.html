@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+        <meta charset="UTF-8">
+    <title>AlbertaSat GroundStation</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/cmd.css">
+    <script
+      src="/js/index.js"
+      type="module"
+    ></script>
+</head>    
+<body>
+  <h1>
+    AlbertaSat CUBICS
+  </h1>
+    <div class="send-cmd-card">
+      <form>
+        <label>
+          <span>Payload</span>
+          <input name="payload" type="text" value="" />
+        </label>
+        <label>
+          <span>Command</span>
+          <input name="cmd" type="text" value="" />
+        </label>
+        <label>
+          <span>Data</span>
+          <input name="data" type="text" value="" />
+        </label>
+        <button data-action="send">✨ Send Command</button>
+      </form>
+    </div>
+</body>
+</html>
