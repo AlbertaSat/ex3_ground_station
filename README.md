@@ -1,63 +1,56 @@
-# ex3_ground_station
+# EX3 Ground Station
 
-Ground station software to interface with Ex Alta 3
+## Overview
 
-This (very) preliminary strawman uses Rocket to implement a simple WebServer
-that can send messages to the OBC prototype in ex3_obc_fe2o3.
+The EX3 Ground Station software interfaces with the Ex Alta 3 satellite, offering command and control capabilities through a web-based dashboard and a command-line interface. The project is organized as a Rust workspace with multiple components including a backend server, a web dashboard, migration tools, and a CLI for direct OBC communication.
 
-## Prerequisites
+## Workspace Structure
 
-Ensure you have the following installed:
+-   **cli_command_obc**: Command-line interface for direct communication with the satellite's on-board computer (OBC).
+-   **dashboard**: Web-based UI dashboard for monitoring and managing satellite operations.
+-   **migration**: Contains database migration scripts to manage the evolution of database schema.
+-   **server**: Backend server that provides APIs for the dashboard and handles all server-side logic including database interactions.
 
--   [Rust]
--   [PostgreSQL]
--   [Trunk]
--   [SeaORM CLI]
+## Getting Started
 
-To build/run:
-
-1. Install PostgreSQL: https://www.postgresql.org/download/
-2. Create a Database: https://www.postgresql.org/docs/current/tutorial-createdb.html
-3. Update the db_url in `main.rs` with username, password and db_name
-4. Install SeaORM CLI: https://www.sea-ql.org/SeaORM/docs/index/
-5. Use sea-orm-cli to run migrations: https://www.sea-ql.org/sea-orm-tutorial/ch01-02-migration-cli.html
-6. run server: `cargo run`
-
-This should launch the http-server on http://localhost:8000/index.html
-The server currently expects the OBC to be listening on localhost:50000
-
-# ex3_ground_station_dashboard
-
-## Prerequisites
-
-Ensure you have the following installed:
+### Prerequisites
 
 -   [Rust](https://www.rust-lang.org/tools/install)
+-   [PostgreSQL](https://www.postgresql.org/download/)
 -   [Trunk](https://trunkrs.dev/#install)
+-   [SeaORM CLI](https://www.sea-ql.org/SeaORM/docs/installation/cli)
 
-## Running the Dashboard
+### Installation and Setup
 
-To run the dashboard, follow these steps:
+1. **Clone the repository:**
 
-1. **Navigate to the Dashboard Directory:**
-   navigate to the `ex3_ground_station_dashboard` directory.
+-   `git clone https://github.com/AlbertaSat/ex3_ground_station.git`
+-   `cd ex3_ground_station`
 
-    ```sh
-    cd ex3_ground_station_dashboard
+2. **Configure the environment variables:**
+
+-   Create a `.env` file in the root directory.
+-   Update the `DATABASE_URL` in the `.env` file to point to your PostgreSQL database. For the official database URL, please contact the lead developer.
+
+3. **Run database migrations (if necessary):**
+
+-   If you are setting up a new database instance or need to update an existing database to reflect recent changes in the schema:
+    ```
+    cd migration
+    sea-orm-cli migrate up
     ```
 
-2. **Serve the Dashboard**
-    ```sh
-    trunk serve --open
-    ```
-    By default, Trunk will serve the application at http://127.0.0.1:8080. Open this URL in your web browser to view the dashboard.
+### Run Server
 
-# CLI to send a command to the OBC via TCP port
+1. `cd server`
+2. `cargo run`
 
-1. **Navigate to cli_command_obc**
+### Run Dashboard
 
-```sh
-    cd cli_command_obc
-```
+1.  `cd dashboard`
+2.  `trunk serve`
 
-2. See the [README](./cli_command_obc/README.md) for usage and more info
+### Run CLI
+
+1. `cd cli_command_obc`
+2. `cargo run`
