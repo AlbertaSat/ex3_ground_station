@@ -1,7 +1,7 @@
 use crate::obc_client::ObcClient;
-use sea_orm::{Database, DatabaseConnection, Set, ActiveModelTrait};
+use sea_orm::{Database, DatabaseConnection, Set, ActiveModelTrait, EntityTrait, QueryOrder};
 use rocket::fs::{relative, FileServer};
-use rocket::serde::{Deserialize, json::Json};
+use rocket::serde::{Deserialize, Serialize, json::Json};
 use rocket::State;
 use tokio::sync::Mutex;
 use once_cell::sync::Lazy;
@@ -29,6 +29,35 @@ struct CommandInput<'r> {
     cmd: &'r str,
     data: &'r str,
     timestamp: &'r str,
+}
+
+#[derive(Serialize)]
+#[serde(crate = "rocket::serde")]
+struct CommandOutput {
+    id: i32,
+    payload: String,
+    cmd: String,
+    data: String,
+    timestamp: String,
+}
+
+#[get("/api/cmd", format="json")]
+async fn get_cmds(connection: &State<DatabaseConnection>) -> Json<Vec<CommandOutput>> {
+    let commands = command::Entity::find()
+        .order_by_asc(command::Column::Timestamp)
+        .all(connection.inner())
+        .await
+        .expect("Could not fetch commands");
+
+    let result: Vec<CommandOutput> = commands.into_iter().map(|cmd| CommandOutput {
+        id: cmd.id,
+        payload: cmd.payload,
+        cmd: cmd.command,
+        data: cmd.data,
+        timestamp: cmd.timestamp,
+    }).collect();
+
+    Json(result)
 }
 
 #[post("/api/cmd", format = "json", data = "<input>")]
@@ -82,7 +111,7 @@ async fn rocket() -> _ {
 
     rocket::build()
         .manage(connection)
-        .mount("/", routes![post_cmd, options_cors])
+        .mount("/", routes![get_cmds, post_cmd, options_cors])
         .mount("/", FileServer::from(relative!("static")))
         .attach(cors)
 }
