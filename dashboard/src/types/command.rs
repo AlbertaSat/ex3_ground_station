@@ -1,11 +1,11 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use serde_value::Value;
 use yew::{html, Html};
 use yew_custom_components::table;
 use yew_custom_components::table::types::TableData;
 
 
-#[derive(Debug, Default, Clone, PartialEq, PartialOrd, Serialize)]
+#[derive(Debug, Default, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Command {
     pub payload: String,
     pub cmd: String,
