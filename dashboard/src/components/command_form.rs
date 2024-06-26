@@ -1,3 +1,4 @@
+use chrono::Utc;
 use reqwasm::http::Request;
 use serde_json::json;
 use wasm_bindgen_futures::spawn_local;
@@ -11,6 +12,7 @@ async fn send_command(command: Command) -> Result<(), Box<dyn std::error::Error>
         "payload": command.payload,
         "cmd": command.cmd,
         "data": command.data,
+        "timestamp": command.timestamp, 
     });
     
     let response = Request::post("http://127.0.0.1:8000/api/cmd")
@@ -43,6 +45,7 @@ pub fn command_form() -> Html {
                 payload: if name == "payload" { value.clone() } else { command.payload.clone() },
                 cmd: if name == "cmd" { value.clone() } else { command.cmd.clone() },
                 data: if name == "data" { value.clone() } else { command.data.clone() },
+                timestamp: command.timestamp.clone(),
             });
         })
     };
@@ -52,7 +55,8 @@ pub fn command_form() -> Html {
         let command = command.clone();
         Callback::from(move |e: SubmitEvent| {
             e.prevent_default();
-            let command_ = (*command).clone();
+            let mut command_ = (*command).clone();
+            command_.timestamp = Some(Utc::now().to_rfc3339());            
             spawn_local(async move {
                 if let Err(e) = send_command(command_).await {
                     console::error_1(&e.to_string().into());
