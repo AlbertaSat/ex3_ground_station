@@ -56,9 +56,7 @@ pub fn command_form() -> Html {
         Callback::from(move |e: SubmitEvent| {
             e.prevent_default();
             let mut command_ = (*command).clone();
-            command_.timestamp = Some(Utc::now().to_rfc3339());
-            let command_json = serde_json::to_string(&command_).unwrap();
-            console::log_1(&command_json.into());
+            command_.timestamp = Some(Utc::now().to_rfc3339());            
             spawn_local(async move {
                 if let Err(e) = send_command(command_).await {
                     console::error_1(&e.to_string().into());
